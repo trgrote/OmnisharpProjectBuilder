@@ -44,7 +44,7 @@ class BuildOmnisharpProjectCommand(sublime_plugin.TextCommand):
 
 		# Attempt to find the solution file ( .sln ) in the same path the project file lives in
 		for file in os.listdir( proj_path ):
-			if file.endswith(".sln"):
+			if file.endswith(".sln") and not file.endswith("-csharp.sln") :
 				solution_file = file
 
 		# Give a warning to the user
