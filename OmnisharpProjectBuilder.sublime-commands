@@ -1,0 +1,6 @@
+[
+    {
+        "command": "build_omnisharp_project",
+		"caption": "Save as Omnisharp Project"
+    }
+]
