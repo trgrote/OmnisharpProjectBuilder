@@ -9,7 +9,7 @@ omni_sharp_default_dict = { "folders": [ { "follow_symlinks": "true", "path": ".
 class BuildOmnisharpProjectCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
 		proj_name = self.view.window().project_file_name()
-		proj_path = os.path.dirname( os.path.realpath(proj_name))
+		proj_path = ""
 		solution_file = ""
 
 		# If We aren't in a project, then we need to prompt the user to make one
@@ -35,6 +35,8 @@ class BuildOmnisharpProjectCommand(sublime_plugin.TextCommand):
 
 		else:
 			print ( "OmnisharpProjectBuilder: Found Project '%s', continuing" % proj_name )
+
+		proj_path = os.path.dirname( os.path.realpath(proj_name))
 
 		# Prompt user for the Location of their solution file
 		# root = tk.Tk()
