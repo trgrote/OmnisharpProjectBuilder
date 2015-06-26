@@ -92,6 +92,7 @@ class SLNProjectListener( sublime_plugin.EventListener ):
 
 				# Find Relative path from project folder to solution file
 				rel_solution_file_path = os.path.relpath( solution_file_path, proj_path )
+				rel_solution_file_path = rel_solution_file_path.replace( '\\', '/' )  # for the WinDOS
 				print ( "OmnisharpProjectBuilder: Relative Solution File Path: " + rel_solution_file_path )
 
 				# Setup Project Data Info
@@ -113,7 +114,24 @@ class SLNProjectListener( sublime_plugin.EventListener ):
 			else:
 				# Check to see if the project already has a solution linked to it
 				print ( "OmnisharpProjectBuilder: Project Already Loaded, checking to see if a project is already loaded" )
-				# If not, prompt the user
-				# if it does ( then ask to replace, if it's not the same ) -- should be configurable in the future
+
+				project_data = view.window().project_data()
+				proj_path = os.path.dirname( os.path.realpath( proj_name ) )
+
+				rel_solution_file_path = os.path.relpath( solution_file_path, proj_path )    # get Relative Solution Path
+				rel_solution_file_path = rel_solution_file_path.replace( '\\', '/' )
+				rel_solution_file = rel_solution_file_path + "/" + os.path.basename( solution_file )
+
+				# If project data doesn't have a solution file set, or it's not the solution file we just loaded, then ask them if they want to reassocate
+				if project_data[ "solution_file" ] == None or project_data[ "solution_file" ] != rel_solution_file:
+					
+					user_requested_update_project = sublime.ok_cancel_dialog( "Would you like to associate your current project with this Solution?", "Yes")
+
+					if user_requested_update_project:
+						project_data[ "solution_file" ] = rel_solution_file
+						# Save Project Data and Display it to user
+						view.window().set_project_data( project_data )    # Save the new project settings
+						view.window().open_file( proj_name )              # Open Project file to user to see
+
 
 
