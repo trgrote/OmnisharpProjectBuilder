@@ -11,4 +11,3 @@ Intended to be used in conjunction with [Omnisharp Sublime](https://github.com/O
 2. Open sln to build or update project
   * Opening *.sln file without of a project - A prompt will appear asking you if you want to make a new project with this solution file.
   * Opening *.sln file with an active project - A prompt will appear asking you if you want to update your project, setting this file as the solution file of the project.
-3. Butts
