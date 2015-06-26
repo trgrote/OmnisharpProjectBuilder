@@ -4,6 +4,7 @@ import sublime, sublime_plugin, json, os
 # TODO: Put this in a config file that users can choose to modify
 omni_sharp_default_dict = { "folders": [ { "follow_symlinks": "true", "path": "." } ], "solution_file": "" }
 
+# Command for Building Omnisharp Project
 # how to test:
 # view.run_command( 'build_omnisharp_project' )
 class BuildOmnisharpProjectCommand(sublime_plugin.TextCommand):
@@ -59,6 +60,8 @@ class BuildOmnisharpProjectCommand(sublime_plugin.TextCommand):
 		self.view.window().set_project_data( new_proj_data )    # Save the new project settings
 		self.view.window().open_file( proj_name )               # Open Project file to user to see
 
+# Listens for anytime somebody loads up a *sln file
+# When you run 'Sync Mono Project' in Unity, for example.
 class SLNProjectListener( sublime_plugin.EventListener ):
 	def on_load(self, view):
 		print ( "OmnisharpProjectBuilder: Loaded File: " + view.file_name() )
