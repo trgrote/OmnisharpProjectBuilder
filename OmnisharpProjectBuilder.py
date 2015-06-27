@@ -126,7 +126,7 @@ class SLNProjectListener( sublime_plugin.EventListener ):
 				rel_solution_file = rel_solution_file_path + "/" + os.path.basename( solution_file )
 
 				# If project data doesn't have a solution file set, or it's not the solution file we just loaded, then ask them if they want to reassocate
-				if project_data[ "solution_file" ] == None or project_data[ "solution_file" ] != rel_solution_file:
+				if "solution_file" not in project_data or project_data[ "solution_file" ] == None or project_data[ "solution_file" ] != rel_solution_file:
 					
 					user_requested_update_project = sublime.ok_cancel_dialog( "Would you like to associate your current project with this Solution?", "Yes")
 
